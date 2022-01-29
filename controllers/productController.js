@@ -7,7 +7,7 @@ productControler.addProduct = (req, res, next) => {
   const productSchema = joi.object({
     productName: joi.string().required(),
     imgurl: joi.string().required(),
-    unite: joi.string.required(),
+    unite: joi.string.required()
   });
   const { error } = joi.valid(productSchema, req.body);
   if (error) {
@@ -15,9 +15,8 @@ productControler.addProduct = (req, res, next) => {
   }
 };
 // delete product
-productControler.removeProduct = (req, res, next) => {
+productControler.removeProduct = async (req, res, next) => {
   const { id } = req.query;
-  
 };
 // update product
 productControler.updateProduct = (req, res, next) => {};
