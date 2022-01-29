@@ -51,4 +51,5 @@ router.delete("/manpowers", manpowerController.delete);
 router.put("/manpowers", manpowerController.update);
 router.get("/manpowers", manpowerController.getOne);
 router.get("/manpowers", manpowerController.getAll);
+
 export default router;
