@@ -1,5 +1,12 @@
 import { Router } from "express";
-import { productControler, userController } from "../controllers";
+import {
+  productListControler,
+  userController,
+  billController,
+  returnController,
+  requsitionController,
+  manpowerController
+} from "../controllers";
 const router = Router();
 router.get("/", (req, res, next) => {
   res.send("ok vai thik ace sob.");
@@ -7,11 +14,11 @@ router.get("/", (req, res, next) => {
 
 router.post("/register", userController.register);
 router.post("/login", userController.login);
-// product
-router.post("/products", productControler.addProduct);
-router.delete("/products/:id", productControler.removeProduct);
-router.patch("/products/:id", productControler.updateProduct);
-router.get("/products/:id", productControler.oneProduct);
-router.get("/products", productControler.allProduct);
+// productList
+router.post("/products", productListControler.addProduct);
+router.delete("/products/:id", productListControler.removeProduct);
+router.patch("/products/:id", productListControler.updateProduct);
+router.get("/products/:id", productListControler.oneProduct);
+router.get("/products", productListControler.allProduct);
 
 export default router;
