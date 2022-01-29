@@ -1,15 +1,14 @@
-class CustomeError extend Error{
-  constactor(status,message){
+class CustomeError extends Error {
+  constactor(status, message) {
     super();
-    this.status= status;
-    this.message= message
+    this.status = status;
+    this.message = message;
   }
-  static notFound (status=404,message){
+  static notFound(status = 404, message) {
     return new CustomeError();
   }
-  static alreadyExsit (){
-    return new CustomeError
+  static alreadyExsit() {
+    return new CustomeError();
   }
-
 }
 export default CustomeError;
