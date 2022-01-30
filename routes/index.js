@@ -6,7 +6,8 @@ import {
   billController,
   returnController,
   requsitionController,
-  manpowerController
+  manpowerController,
+  shoeController
 } from "../controllers";
 const router = Router();
 router.get("/", (req, res, next) => {
@@ -51,5 +52,11 @@ router.delete("/manpowers", manpowerController.delete);
 router.put("/manpowers", manpowerController.update);
 router.get("/manpowers", manpowerController.getOne);
 router.get("/manpowers", manpowerController.getAll);
+// shoe
+router.post("/shoes", shoeController.add);
+router.delete("/shoes", shoeController.delete);
+router.put("/shoes", shoeController.update);
+router.get("/shoes", shoeController.getOne);
+router.get("/shoes", shoeController.getAll);
 
 export default router;
