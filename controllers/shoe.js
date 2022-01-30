@@ -21,7 +21,15 @@ shoeController.add = async (req, res, next) => {
   }
 };
 
-shoeController.delete = async (req, res, next) => {};
+shoeController.delete = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const result = await Shoe.findByIdAndDelete(id);
+    return res.status(200).json(result);
+  } catch (error) {
+    return next(error);
+  }
+};
 // update
 shoeController.update = async (req, res, next) => {
   const shoeScema = joi.object({
@@ -37,7 +45,9 @@ shoeController.update = async (req, res, next) => {
   try {
     const result = await Shoe.findbyIdupdate({}, { $set: { id, name, date } });
     return res.status(201).json(result);
-  } catch (error) {}
+  } catch (error) {
+    return next(error);
+  }
 };
 
 shoeController.getOne = async (req, res, next) => {
