@@ -9,7 +9,7 @@ const ProductListSchema = new mongoose.Schema(
   { timestamps: true }
 );
 // ok
-export default mongoose.model("productList", ProductListSchema);
-  //  name: joi.string().required(),
-  //   imgurl: joi.string().required(),
-  //   unit: joi.string().required(),
+export default mongoose.model("ProductList", ProductListSchema);
+//  name: joi.string().required(),
+//   imgurl: joi.string().required(),
+//   unit: joi.string().required(),

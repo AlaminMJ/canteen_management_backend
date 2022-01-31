@@ -8,6 +8,7 @@ import {
   shoeController,
   productControler,
 } from "../controllers";
+import Product from "../models/product";
 const router = Router();
 router.get("/", (req, res, next) => {
   res.send("ok vai thik ace sob.");
@@ -25,8 +26,19 @@ router.get("/productlists", productListControler.getAll);
 router.post("/products/:id", productControler.add);
 // router.delete("/products", productControler.delete);
 // router.patch("/products", productControler.update);
-// router.get("/products/:id", productControler.getOne);
-router.get("/products", productControler.getAll);
+router.get("/products/:id", async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const result = await Product.findById(id).populate(
+      "product",
+      "_id name unit"
+    );
+    return res.status(200).json(result);
+  } catch (error) {
+    return next(error);
+  }
+});
+// router.get("/products",productControler.getOne);
 
 // // requsiton
 // router.post("/requsitions", requsitionController.add);
