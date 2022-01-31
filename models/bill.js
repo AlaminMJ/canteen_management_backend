@@ -1,8 +1,13 @@
 import mongoose from "mongoose";
 const BillSchema = new mongoose.Schema(
   {
-    date: { type: Date, default: Date.now() },
-    billList: { type: Array, required: true }
+    date: { type: Date, require: true },
+    billList: [
+      {
+        billName: { type: String, require: true },
+        amount: { type: Number, require: true }
+      }
+    ]
   },
   { timestamps: true }
 );
