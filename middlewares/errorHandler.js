@@ -1,9 +1,9 @@
-import { validationError } from "joi";
+import { ValidationError } from "joi";
 import { CustomeError } from "../services";
 const errorHandler = (err, req, res, next) => {
   let statusCode = 500;
   let data = { message: "Internal server error" };
-  if (err instanceof validationError) {
+  if (err instanceof ValidationError) {
     statusCode = 403;
     data = { message: err.message };
   }

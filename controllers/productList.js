@@ -1,8 +1,8 @@
 import joi from "joi";
 
-const productControler = {};
+const productListControler = {};
 // add product
-productControler.addProduct = (req, res, next) => {
+productListControler.add = (req, res, next) => {
   //  validation product data
   const productSchema = joi.object({
     productName: joi.string().required(),
@@ -15,12 +15,12 @@ productControler.addProduct = (req, res, next) => {
   }
 };
 // delete product
-productControler.removeProduct = async (req, res, next) => {
+productListControler.delete = async (req, res, next) => {
   const { id } = req.query;
 };
 // update product
-productControler.updateProduct = (req, res, next) => {};
-productControler.oneProduct = (req, res, next) => {};
-productControler.allProduct = (req, res, next) => {};
+productListControler.update= (req, res, next) => {};
+productListControler.getOne = (req, res, next) => {};
+productListControler.getAll = (req, res, next) => {};
 
-export default productControler;
+export default productListControler;
