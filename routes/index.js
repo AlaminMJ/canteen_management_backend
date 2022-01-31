@@ -6,6 +6,7 @@ import {
   requsitionController,
   manpowerController,
   shoeController,
+  productControler,
 } from "../controllers";
 const router = Router();
 router.get("/", (req, res, next) => {
@@ -21,11 +22,11 @@ router.patch("/productlists/:id", productListControler.update);
 router.get("/productlists/:id", productListControler.getOne);
 router.get("/productlists", productListControler.getAll);
 // product
-// router.post("/products", productController.add);
-// router.delete("/products", productController.delete);
-// router.patch("/products", productController.update);
-// router.get("/products", productController.getOne);
-// router.get("/products", productController.getAll);
+router.post("/products/:id", productControler.add);
+// router.delete("/products", productControler.delete);
+// router.patch("/products", productControler.update);
+// router.get("/products/:id", productControler.getOne);
+router.get("/products", productControler.getAll);
 
 // // requsiton
 // router.post("/requsitions", requsitionController.add);

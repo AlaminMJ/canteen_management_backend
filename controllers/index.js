@@ -4,6 +4,7 @@ import billController from "./bill";
 import requsitionController from "./requsition";
 import manpowerController from "./manpower";
 import shoeController from "./shoe";
+import productControler from "./product";
 
 export {
   productListControler,
@@ -12,4 +13,5 @@ export {
   requsitionController,
   manpowerController,
   shoeController,
+  productControler,
 };
