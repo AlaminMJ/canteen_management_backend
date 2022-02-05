@@ -41,11 +41,13 @@ productListControler.add = async (req, res, next) => {
       if (err) {
         return next(CustomErrorHandler.serverError(err.message));
       }
-    });
+    
 
     return next(error);
     // rootfolder/uploads/filename.png
+
   }
+
   const { name, imgurl, unit } = req.body;
   const newProductList = new ProductList({ name, imgurl: filePath, unit });
   try {
@@ -53,46 +55,84 @@ productListControler.add = async (req, res, next) => {
     return res.status(200).json(result);
   } catch (error) {
     return next(error);
-  }});
+  });
+
 };
 
 // delete product
 productListControler.delete = async (req, res, next) => {
-  const { id } = req.params;
-  try {
-    const result = await ProductList.findByIdAndDelete(id);
-    return res.status(200).json(result);
-  } catch (error) {
-    return next(error);
+  const document = await Product.findOneAndRemove({ _id: req.params.id });
+  if (!document) {
+      return next(new Error('Nothing to delete'));
   }
+  // image delete
+  const imagePath = document.imageurl;
+  // http://localhost:5000/uploads/1616444052539-425006577.png
+  // approot/http://localhost:5000/uploads/1616444052539-425006577.png
+  fs.unlink(`${appRoot}/${imagePath}`, (err) => {
+      if (err) {
+          return next(CustomErrorHandler.serverError());
+      }
+      return res.json(document);
+  });
 };
+
 // update product
 productListControler.update = async (req, res, next) => {
-  const { id } = req.params;
-  //  validation product data
-  const productSchema = joi.object({
-    name: joi.string(),
-    imgurl: joi.string(),
-    unit: joi.string()
-  });
-  const { error } = productSchema.validate(req.body);
-  if (error) {
-    return next(error);
-  }
-  const { name, imgurl, unit } = req.body;
-  try {
-    const result = await ProductList.findByIdAndUpdate(
-      id,
-      {
-        $set: { name, imgurl, unit }
-      },
-      { new: true }
-    );
-    return res.status(200).json(result);
-  } catch (error) {
-    return next(error);
-  }
-};
+  handleMultipartData(req, res, async (err) => {
+    if (err) {
+        return next(CustomErrorHandler.serverError(err.message));
+    }
+    let filePath;
+    if (req.file) {
+        filePath = req.file.path;
+    }
+
+    // validation
+    const productSchema = joi.object({
+      name: joi.string(),
+      unit: joi.string()
+    });
+    const { error } = productSchema.validate(req.body);
+    if (error) {
+        // Delete the uploaded file
+        if (req.file) {
+            fs.unlink(`${appRoot}/${filePath}`, (err) => {
+                if (err) {
+                    return next(
+                        CustomErrorHandler.serverError(err.message)
+                    );
+                }
+            });
+        }
+
+        return next(error);
+        // rootfolder/uploads/filename.png
+    }
+
+    const { name, unite } = req.body;
+    let document;
+    try {
+        document = await Product.findOneAndUpdate(
+            { _id: req.params.id },
+            {
+                name,
+                unite,
+                ...(req.file && { image: filePath }),
+            },
+            { new: true }
+        );
+    } catch (err) {
+        return next(err);
+    }
+    res.status(201).json(document);
+});
+
+
+
+
+
+   
 productListControler.getOne = async (req, res, next) => {
   console.log(req.params);
   const { id } = req.params;

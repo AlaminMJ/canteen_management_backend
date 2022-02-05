@@ -1,2 +1,2 @@
-import CustomeError from "./CustomError";
-export { CustomeError };
+import CustomErrorHandler from "./CustomError";
+export { CustomErrorHandler };
