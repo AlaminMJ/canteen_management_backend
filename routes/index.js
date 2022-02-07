@@ -27,43 +27,32 @@ router.get("/productlists", productListControler.getAll);
 router.post("/products/:id", productControler.add);
 // router.delete("/products", productControler.delete);
 // router.patch("/products", productControler.update);
-router.get("/products/:id", async (req, res, next) => {
-  const { id } = req.params;
-  try {
-    const result = await Product.findById(id).populate(
-      "product",
-      "_id name unit"
-    );
-    return res.status(200).json(result);
-  } catch (error) {
-    return next(error);
-  }
-});
+router.get("/products/:id", products.getOne);
 // router.get("/products",productControler.getOne);
 
 // // requsiton
 router.post("/requsitions", requsitionController.add);
-router.delete("/requsitions", requsitionController.delete);
-router.put("/requsitions", requsitionController.update);
-router.get("/requsitions", requsitionController.getOne);
+router.delete("/requsitions/:id", requsitionController.delete);
+router.put("/requsitions/:id", requsitionController.update);
+router.get("/requsitions/:id", requsitionController.getOne);
 router.get("/requsitions", requsitionController.getAll);
 // // bill
 router.post("/bills", billController.add);
-router.delete("/bills", billController.delete);
-router.put("/bills", billController.update);
-router.get("/bills", billController.getOne);
+router.delete("/bills/:id", billController.delete);
+router.put("/bills/:id", billController.update);
+router.get("/bills/:id", billController.getOne);
 router.get("/bills", billController.getAll);
 // // manpower
 router.post("/manpowers", manpowerController.add);
-router.delete("/manpowers", manpowerController.delete);
-router.put("/manpowers", manpowerController.update);
-router.get("/manpowers", manpowerController.getOne);
+router.delete("/manpowers/:id", manpowerController.delete);
+router.put("/manpowers/:id", manpowerController.update);
+router.get("/manpowers/:id", manpowerController.getOne);
 router.get("/manpowers", manpowerController.getAll);
 // // shoe
 router.post("/shoes", shoeController.add);
-router.delete("/shoes", shoeController.delete);
-router.put("/shoes", shoeController.update);
-router.get("/shoes", shoeController.getOne);
+router.delete("/shoes/:id", shoeController.delete);
+router.put("/shoes/:id", shoeController.update);
+router.get("/shoes/:id", shoeController.getOne);
 router.get("/shoes", shoeController.getAll);
 
 export default router;

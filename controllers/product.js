@@ -55,7 +55,10 @@ productControler.update = async (req, res, next) => {
 productControler.getOne = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const result = await Product.findById(id);
+    const result = await Product.findById(id).populate(
+      "product",
+      "_id name unit"
+    );
     return res.status(200).json(result);
   } catch (error) {
     return next(error);
