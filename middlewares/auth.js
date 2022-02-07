@@ -1,18 +1,26 @@
 //
 const auth = {};
+
 auth.admin = async (req, res, next) => {
-  const accessToken = req.headers.authoraization;
-  if (!accessToken || !accessToken.startWith("bearer")) {
-    return next("");
+  if (req.user.role === "admin") {
+    next();
+  } else {
+    next(new Error("you not allow for that "));
   }
-  const token = accessToken.split(" ")[1];
-  const 
 };
 
 auth.store = async (req, res, next) => {
-
+  if (req.user.role === "store") {
+    next();
+  } else {
+    next(new Error("you not allow for that "));
+  }
 };
 auth.canteen = async (req, res, next) => {
-
+  if (req.user.role === "canteen") {
+    next();
+  } else {
+    next(new Error("you not allow for that "));
+  }
 };
 export default auth;

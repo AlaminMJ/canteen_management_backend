@@ -4,7 +4,7 @@ import cors from "cors";
 import path from "path";
 import mainRoute from "./routes";
 import conn from "./db/conn";
-import { errorHandler } from "./middlewares";
+import { errorHandler, varifyToken } from "./middlewares";
 const app = express();
 // database connect
 conn();
@@ -17,6 +17,7 @@ app.use("/api", mainRoute);
 global.appRoot = path.resolve(__dirname);
 // error middleware
 app.use(errorHandler);
+app.use(varifyToken);
 // Server Listing
 app.listen(PORT, () => {
   console.log(`Server is runing on ${PORT}`);

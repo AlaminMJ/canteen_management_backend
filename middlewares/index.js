@@ -1,2 +1,3 @@
 import errorHandler from "./errorHandler";
-export { errorHandler };
+import varifyToken from "./varifyToken";
+export { errorHandler, varifyToken };
