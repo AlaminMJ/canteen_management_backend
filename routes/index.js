@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { auth } from "../middlewares";
 import {
   productListControler,
   userController,
@@ -6,7 +7,7 @@ import {
   requsitionController,
   manpowerController,
   shoeController,
-  productControler,
+  productControler
 } from "../controllers";
 import Product from "../models/product";
 const router = Router();
@@ -41,28 +42,28 @@ router.get("/products/:id", async (req, res, next) => {
 // router.get("/products",productControler.getOne);
 
 // // requsiton
-// router.post("/requsitions", requsitionController.add);
-// router.delete("/requsitions", requsitionController.delete);
-// router.put("/requsitions", requsitionController.update);
-// router.get("/requsitions", requsitionController.getOne);
-// router.get("/requsitions", requsitionController.getAll);
+router.post("/requsitions", requsitionController.add);
+router.delete("/requsitions", requsitionController.delete);
+router.put("/requsitions", requsitionController.update);
+router.get("/requsitions", requsitionController.getOne);
+router.get("/requsitions", requsitionController.getAll);
 // // bill
-// router.post("/bills", billController.add);
-// router.delete("/bills", billController.delete);
-// router.put("/bills", billController.update);
-// router.get("/bills", billController.getOne);
-// router.get("/bills", billController.getAll);
+router.post("/bills", billController.add);
+router.delete("/bills", billController.delete);
+router.put("/bills", billController.update);
+router.get("/bills", billController.getOne);
+router.get("/bills", billController.getAll);
 // // manpower
-// router.post("/manpowers", manpowerController.add);
-// router.delete("/manpowers", manpowerController.delete);
-// router.put("/manpowers", manpowerController.update);
-// router.get("/manpowers", manpowerController.getOne);
-// router.get("/manpowers", manpowerController.getAll);
+router.post("/manpowers", manpowerController.add);
+router.delete("/manpowers", manpowerController.delete);
+router.put("/manpowers", manpowerController.update);
+router.get("/manpowers", manpowerController.getOne);
+router.get("/manpowers", manpowerController.getAll);
 // // shoe
-// router.post("/shoes", shoeController.add);
-// router.delete("/shoes", shoeController.delete);
-// router.put("/shoes", shoeController.update);
-// router.get("/shoes", shoeController.getOne);
-// router.get("/shoes", shoeController.getAll);
+router.post("/shoes", shoeController.add);
+router.delete("/shoes", shoeController.delete);
+router.put("/shoes", shoeController.update);
+router.get("/shoes", shoeController.getOne);
+router.get("/shoes", shoeController.getAll);
 
 export default router;
