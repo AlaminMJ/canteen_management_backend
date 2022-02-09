@@ -8,13 +8,13 @@ const productListControler = {};
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "uploads/"),
   filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}-${Math.round(
+    const uniqueName = `${Date.now()}${Math.round(
       Math.random() * 1e9
     )}${path.extname(file.originalname)}`;
     cb(null, uniqueName);
   },
 });
-
+//comment
 const handleMultipartData = multer({
   storage,
   limits: { fileSize: 1000000 * 5 },
@@ -23,18 +23,24 @@ const handleMultipartData = multer({
 // add product
 productListControler.add = async (req, res, next) => {
   //  validation product data
+  console.log(req.body);
   handleMultipartData(req, res, async (error) => {
     if (error) {
       return next(error);
     }
 
-    const filePath = req.file.path;
-    const { name, imgurl, unit } = req.body;
-    const newProductList = new ProductList({ name, imgurl: filePath, unit });
+    // const filePath = req.file.path;
+    const { productName, productCode, unit } = req.body;
+    const newProductList = new ProductList({ productName, productCode, unit });
     try {
       const result = await newProductList.save();
       return res.status(200).json(result);
     } catch (error) {
+      // fs.unlink(req.file.path, (err) => {
+      //   if (err) {
+      //     return next(err);
+      //   }
+      // });
       return next(error);
     }
   });

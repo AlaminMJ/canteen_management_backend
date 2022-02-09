@@ -11,14 +11,18 @@ conn();
 // middlewares
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use("/api", mainRoute);
 global.appRoot = path.resolve(__dirname);
 // error middleware
 app.use(errorHandler);
-app.use(varifyToken);
+// app.use(varifyToken);
 // Server Listing
+app.get("/", (req, res) => {
+  res.send("ok vai");
+});
 app.listen(PORT, () => {
   console.log(`Server is runing on ${PORT}`);
 });
+//  
