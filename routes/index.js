@@ -49,10 +49,10 @@ router.get("/productlists", productListControler.getAll);
 // router.get("/manpowers/:id", manpowerController.getOne);
 // router.get("/manpowers", manpowerController.getAll);
 // // // shoe
-// router.post("/shoes", shoeController.add);
-// router.delete("/shoes/:id", shoeController.delete);
-// router.put("/shoes/:id", shoeController.update);
-// router.get("/shoes/:id", shoeController.getOne);
-// router.get("/shoes", shoeController.getAll);
+router.post("/shoes", shoeController.add);
+router.delete("/shoes/:id", shoeController.delete);
+router.put("/shoes/:id", shoeController.update);
+router.get("/shoes/:id", shoeController.getOne);
+router.get("/shoes", shoeController.getAll);
 
 export default router;

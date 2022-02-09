@@ -1,66 +1,40 @@
 import joi from "joi";
-import multer from "multer";
-import path from "path";
-import fs from "fs";
+
 import { ProductList } from "../models";
 const productListControler = {};
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, "uploads/"),
-  filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}${Math.round(
-      Math.random() * 1e9
-    )}${path.extname(file.originalname)}`;
-    cb(null, uniqueName);
-  },
-});
-//comment
-const handleMultipartData = multer({
-  storage,
-  limits: { fileSize: 1000000 * 5 },
-}).single("image"); // 5mb
-
 // add product
 productListControler.add = async (req, res, next) => {
-  //  validation product data
   console.log(req.body);
-  handleMultipartData(req, res, async (error) => {
-    if (error) {
-      return next(error);
-    }
-
-    // const filePath = req.file.path;
-    const { productName, productCode, unit } = req.body;
-    const newProductList = new ProductList({ productName, productCode, unit });
-    try {
-      const result = await newProductList.save();
-      return res.status(200).json(result);
-    } catch (error) {
-      // fs.unlink(req.file.path, (err) => {
-      //   if (err) {
-      //     return next(err);
-      //   }
-      // });
-      return next(error);
-    }
+  //  validation product data
+  const productListScema = joi.object({
+    productName: joi.string().required(),
+    productCode: joi.string().required(),
+    unit: joi.string().required(),
+    imgurl: joi.string().required(),
   });
+  const { error } = await productListScema.validateAsync(req.body);
+  if (error) {
+    return next(error);
+  }
+
+  const { productName, productCode, unit, imgurl } = req.body;
+  const newProductList = new ProductList({
+    productName,
+    productCode,
+    unit,
+    imgurl,
+  });
+  try {
+    const result = await newProductList.save();
+    return res.status(200).json(result);
+  } catch (error) {
+    return next(error);
+  }
 };
 
 // delete product
-productListControler.delete = async (req, res, next) => {
-  const document = await Product.findOneAndRemove({ _id: req.params.id });
-  if (!document) {
-    return next(new Error("Nothing to delete"));
-  }
-  // image delete
-  const imagePath = document.imageurl;
-  fs.unlink(`${appRoot}/${imagePath}`, (err) => {
-    if (err) {
-      return next(err);
-    }
-    return res.json(document);
-  });
-};
+productListControler.delete = async (req, res, next) => {};
 
 productListControler.getOne = async (req, res, next) => {
   console.log(req.params);

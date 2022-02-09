@@ -3,9 +3,9 @@ import joi from "joi";
 const shoeController = {};
 shoeController.add = async (req, res, next) => {
   const shoeScema = joi.object({
-    id: joi.string().requried(),
-    name: joi.string().requried(),
-    date: joi.date().requried()
+    id: joi.string().required(),
+    name: joi.string().required(),
+    date: joi.string().required(),
   });
   const { error } = shoeScema.validate(req.body);
   if (error) {
@@ -33,9 +33,9 @@ shoeController.delete = async (req, res, next) => {
 // update
 shoeController.update = async (req, res, next) => {
   const shoeScema = joi.object({
-    id: joi.string(),
-    name: joi.string(),
-    date: joi.date()
+    id: joi.string().required(),
+    name: joi.string().required(),
+    date: joi.date().required(),
   });
   const { error } = shoeScema.validate(req.body);
   if (error) {
@@ -43,7 +43,13 @@ shoeController.update = async (req, res, next) => {
   }
   const { id, name, date } = req.body;
   try {
-    const result = await Shoe.findbyIdupdate({}, { $set: { id, name, date } });
+    const result = await Shoe.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: { id, name, date },
+      },
+      { new: true }
+    );
     return res.status(201).json(result);
   } catch (error) {
     return next(error);
@@ -53,7 +59,7 @@ shoeController.update = async (req, res, next) => {
 shoeController.getOne = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const result = await Shoe.find({ id }).short("date", -1);
+    const result = await Shoe.find({ id }).select("_id id date name");
     return res.status(200).json(result);
   } catch (error) {
     return next(error);
@@ -61,11 +67,11 @@ shoeController.getOne = async (req, res, next) => {
 };
 shoeController.getAll = async (req, res, next) => {
   try {
-    const result = await Shoe.find({});
+    const result = await Shoe.find({}).select("_id id date name");
     return res.status(200).json(result);
   } catch (error) {
     return next(error);
   }
 };
-
+//
 export default shoeController;
