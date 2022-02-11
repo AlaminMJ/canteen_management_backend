@@ -67,7 +67,7 @@ shoeController.getOne = async (req, res, next) => {
 };
 shoeController.getAll = async (req, res, next) => {
   try {
-    const result = await Shoe.find({}).select("_id id date name");
+    const result = await Shoe.find({}).select("_id id date name").sort("-date");
     return res.status(200).json(result);
   } catch (error) {
     return next(error);
