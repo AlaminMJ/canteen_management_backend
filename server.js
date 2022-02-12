@@ -22,7 +22,7 @@ app.use(errorHandler);
 app.get("/", (req, res) => {
   res.send("ok vai");
 });
-app.listen(PORT, () => {
+app.listen(process.env.PORT || 5000, () => {
   console.log(`Server is runing on ${PORT}`);
 });
-//  
+//
