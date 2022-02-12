@@ -1,5 +1,4 @@
 import express from "express";
-import { PORT } from "./config";
 import cors from "cors";
 import path from "path";
 import mainRoute from "./routes";
@@ -22,7 +21,7 @@ app.use(errorHandler);
 app.get("/", (req, res) => {
   res.send("ok vai");
 });
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is runing on ${PORT}`);
 });
