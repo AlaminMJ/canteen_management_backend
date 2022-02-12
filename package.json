@@ -6,6 +6,7 @@
     "start": "node -r esm server.js",
     "dev": "nodemon -r esm server.js"
   },
+  "type": "module",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.0.1",
